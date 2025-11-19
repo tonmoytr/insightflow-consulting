@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+/* Smooth text + custom spacing fixes */
+html,
+body {
+  scroll-behavior: smooth;
+  background: #ffffff;
+}
