@@ -1,8 +1,8 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
-import Groq from 'groq-sdk';
+﻿import Groq from "groq-sdk";
+import { NextRequest, NextResponse } from "next/server";
 
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY
+  apiKey: process.env.GROQ_API_KEY,
 });
 
 export async function POST(request: NextRequest) {
@@ -15,9 +15,9 @@ PROJECT BRIEF:
 ${formData.projectBrief}
 
 FOCUS AREA: ${formData.focusArea}
-COMPANY CONTEXT: ${formData.companyContext || 'Not specified'}
-TIMELINE: ${formData.timeline || 'Not specified'}
-BUDGET: ${formData.budget || 'Not specified'}
+COMPANY CONTEXT: ${formData.companyContext || "Not specified"}
+TIMELINE: ${formData.timeline || "Not specified"}
+BUDGET: ${formData.budget || "Not specified"}
 
 Provide a detailed JSON response with this exact structure:
 {
@@ -70,99 +70,79 @@ Focus on:
 Be thorough, practical, and consultative in your analysis.`;
 
     const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
+      messages: [{ role: "user", content: prompt }],
       model: "llama-3.1-8b-instant",
       temperature: 0.1,
       max_tokens: 2000,
     });
 
     const responseText = completion.choices[0]?.message?.content;
-    
+
     if (!responseText) {
-      throw new Error('No response from AI');
+      throw new Error("No response from AI");
     }
 
-    // Parse the JSON response
+    // Try parsing AI JSON
     let analysis;
     try {
       analysis = JSON.parse(responseText);
-    } catch (parseError) {
-      // If JSON parsing fails, create a fallback response
+    } catch {
+      // fallback structure if JSON parsing fails
       analysis = {
-        summary: "Your project brief has been analyzed. We've identified several key areas for consideration and potential improvements to ensure successful implementation.",
+        summary:
+          "Your project brief has been analyzed. We've identified several key areas for consideration and potential improvements.",
         overallScore: 78,
         complexity: "Medium",
         recommendedApproach: "Phased",
         goals: [
           {
             objective: "Improve operational efficiency through automation",
-            assessment: "Well-defined objective with clear business value"
+            assessment: "Clear objective with strong business value",
           },
-          {
-            objective: "Implement AI-powered insights dashboard",
-            assessment: "Feasible but requires detailed technical specification"
-          }
         ],
         risks: [
           {
             risk: "Scope creep due to evolving requirements",
             severity: "Medium",
-            mitigation: "Establish clear project boundaries and change management process"
+            mitigation:
+              "Define clear scope, boundaries, and a formal change control process.",
           },
-          {
-            risk: "Integration challenges with existing systems",
-            severity: "High",
-            mitigation: "Conduct thorough technical assessment and proof of concept"
-          }
         ],
         gaps: [
-          "Specific success metrics and KPIs need definition",
-          "User acceptance criteria require clarification",
-          "Data quality and availability assessment needed"
+          "Success metrics not clearly defined",
+          "Missing technical details about existing systems",
         ],
         opportunities: [
-          "Potential for additional process optimizations",
-          "Opportunity to establish AI governance framework",
-          "Possible expansion to other business units"
+          "Potential for additional process automation",
+          "Opportunity to expand insights-driven decision making",
         ],
         followUpQuestions: [
-          "What are the specific success metrics you want to track?",
-          "Who are the key stakeholders and decision makers?",
-          "What is your current data infrastructure and quality?",
-          "Are there any regulatory or compliance requirements?",
-          "What is your team's current AI/technical capability?"
+          "What KPIs define success for this project?",
+          "What systems will this solution need to integrate with?",
+          "Who will be the main internal users?",
         ],
         recommendations: [
           {
-            title: "Conduct Discovery Workshop",
-            description: "Start with a comprehensive discovery session to clarify requirements, assess current state, and align stakeholders on objectives"
+            title: "Start with Discovery Workshop",
+            description:
+              "Clarify scope, define metrics, align stakeholders, and identify risks.",
           },
-          {
-            title: "Develop Proof of Concept",
-            description: "Build a small-scale prototype to validate technical feasibility and demonstrate value before full implementation"
-          },
-          {
-            title: "Create Detailed Project Plan",
-            description: "Develop a phased implementation plan with clear milestones, deliverables, and success criteria"
-          }
-        ]
+        ],
       };
     }
 
     return NextResponse.json(analysis);
+  } catch (error: unknown) {
+    console.error("Brief Analyzer Error:", error);
 
-  } catch (error) {
-    console.error('Brief Analyzer Error:', error);
-    
+    // safe error.message extraction
+    const message =
+      error instanceof Error ? error.message : "Unknown error occurred";
+
     return NextResponse.json(
-      { 
-        error: 'Failed to analyze brief',
-        details: error.message 
+      {
+        error: "Failed to analyze brief",
+        details: message,
       },
       { status: 500 }
     );
