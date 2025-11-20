@@ -1,199 +1,151 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
-  { href: "/contact", label: "Contact" },
-] as const;
+const navigation = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Lab", href: "/lab" },
+  { name: "Pricing", href: "/pricing" },
+  { name: "Contact", href: "/contact" },
+];
 
 export function SiteHeader() {
-  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
-
-  const isActive = (href: string) => {
-    return href === "/" ? pathname === "/" : pathname.startsWith(href);
-  };
-
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "border-b border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-md"
-          : "border-b border-slate-200/50 bg-white/80 backdrop-blur-sm"
-      }`}
-    >
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo / Brand */}
-          <Link
-            href="/"
-            className="group flex items-center gap-2.5 transition-transform hover:scale-[1.02]"
-          >
-            <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 shadow-md shadow-blue-500/25 transition-shadow group-hover:shadow-lg group-hover:shadow-blue-500/30">
-              <svg
-                className="h-5 w-5 text-white transition-transform group-hover:scale-110"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      scrolled 
+        ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100" 
+        : "bg-white/90 backdrop-blur-sm shadow-sm"
+    }`}>
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+              <span className="text-white font-bold text-lg">IF</span>
             </div>
-            <div className="flex flex-col">
-              <span className="text-base font-bold leading-none text-slate-900">
+            <div>
+              <div className="text-xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
                 InsightFlow
-              </span>
-              <span className="text-[10px] leading-none text-slate-500">
-                AI Consulting
-              </span>
+              </div>
+              <div className="text-xs text-gray-600 -mt-1">AI Consulting</div>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex md:items-center md:gap-1">
-            {navLinks.map((link) => {
-              const active = isActive(link.href);
+          <nav className="hidden lg:flex items-center space-x-1">
+            {navigation.map((item) => {
+              const isActive = pathname === item.href;
               return (
                 <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors ${
-                    active
-                      ? "text-slate-900"
-                      : "text-slate-600 hover:text-slate-900"
+                  key={item.name}
+                  href={item.href}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative group ${
+                    isActive
+                      ? "text-green-600 bg-green-50"
+                      : "text-gray-800 hover:text-green-600 hover:bg-green-50"
                   }`}
                 >
-                  {link.label}
-                  {active && (
-                    <span className="absolute bottom-0 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-blue-600" />
+                  {item.name}
+                  {isActive && (
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-green-500 rounded-full"></div>
                   )}
                 </Link>
               );
             })}
+          </nav>
 
-            {/* CTA Button */}
+          {/* CTA Button */}
+          <div className="hidden lg:flex items-center space-x-4">
+            {/* <Link
+              href="/lab"
+              className="text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
+            >
+              Try AI Tools
+            </Link> */}
             <Link
               href="/contact"
-              className="ml-4 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-blue-500/25 transition-all hover:shadow-lg hover:shadow-blue-500/30 active:scale-95"
+              className="btn-primary px-6 py-2.5 text-sm"
             >
               Get Started
             </Link>
-          </nav>
+          </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <button
-            type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 transition-colors hover:bg-slate-50 active:bg-slate-100 md:hidden"
-            aria-label="Toggle navigation menu"
-            aria-expanded={isOpen}
+            className="lg:hidden w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors"
           >
-            <div className="flex h-4 w-5 flex-col items-center justify-center gap-1">
-              <span
-                className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
-                  isOpen ? "translate-y-[0.375rem] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
-                  isOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
-                  isOpen ? "-translate-y-[0.375rem] -rotate-45" : ""
-                }`}
-              />
+            <div className="w-6 h-6 relative">
+              <span className={`block absolute h-0.5 w-6 bg-gray-800 transform transition duration-300 ease-in-out ${
+                isOpen ? 'rotate-45 translate-y-1.5' : '-translate-y-1'
+              }`} />
+              <span className={`block absolute h-0.5 w-6 bg-gray-800 transform transition duration-300 ease-in-out ${
+                isOpen ? 'opacity-0' : 'opacity-100'
+              }`} />
+              <span className={`block absolute h-0.5 w-6 bg-gray-800 transform transition duration-300 ease-in-out ${
+                isOpen ? '-rotate-45 -translate-y-1.5' : 'translate-y-1'
+              }`} />
             </div>
           </button>
         </div>
-      </div>
 
-      {/* Mobile Navigation Menu */}
-      <div
-        className={`md:hidden ${
-          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-        } overflow-hidden transition-all duration-300`}
-      >
-        <nav className="border-t border-slate-200 bg-white">
-          <div className="mx-auto max-w-6xl px-4 py-4">
-            <div className="flex flex-col gap-1">
-              {navLinks.map((link) => {
-                const active = isActive(link.href);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`group relative overflow-hidden rounded-lg px-4 py-3 text-sm font-medium transition-all ${
-                      active
-                        ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md shadow-blue-500/25"
-                        : "text-slate-700 hover:bg-slate-50 active:bg-slate-100"
-                    }`}
-                  >
-                    <span className="relative z-10">{link.label}</span>
-                    {!active && (
-                      <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-blue-50 to-blue-100 transition-transform duration-300 group-hover:translate-x-0" />
-                    )}
-                  </Link>
-                );
-              })}
-
-              {/* Mobile CTA */}
+        {/* Mobile Navigation */}
+        <div className={`lg:hidden overflow-hidden transition-all duration-300 ${
+          isOpen ? 'max-h-96 pb-6' : 'max-h-0'
+        }`}>
+          <nav className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+            {navigation.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? "text-green-600 bg-green-50"
+                      : "text-gray-800 hover:text-green-600 hover:bg-gray-50"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+            <div className="pt-4 space-y-3">
+              <Link
+                href="/lab"
+                className="block px-4 py-3 text-center bg-gray-100 text-gray-800 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Try AI Tools
+              </Link>
               <Link
                 href="/contact"
+                className="block px-4 py-3 text-center btn-primary"
                 onClick={() => setIsOpen(false)}
-                className="mt-3 rounded-lg border-2 border-blue-600 bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-md shadow-blue-500/25 transition-all hover:bg-blue-700 hover:border-blue-700 active:scale-95"
               >
-                Get Started →
+                Get Started
               </Link>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 -z-10 bg-slate-900/20 backdrop-blur-sm transition-opacity md:hidden"
-          onClick={() => setIsOpen(false)}
-          aria-hidden="true"
-        />
-      )}
     </header>
   );
 }

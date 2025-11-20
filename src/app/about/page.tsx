@@ -1,268 +1,364 @@
-"use client";
-
-import Link from "next/link";
-
-
-const workProcess = [
-  {
-    step: "01",
-    title: "Understand your context",
-    description:
-      "We map your current processes, tools, constraints, and goals. No generic frameworks—just a clear picture of where you are.",
-    icon: "🔍",
-  },
-  {
-    step: "02",
-    title: "Identify leverage points",
-    description:
-      "Together, we prioritize high-impact, low-risk AI use cases: faster decision cycles, reduced manual work, or better visibility.",
-    icon: "🎯",
-  },
-  {
-    step: "03",
-    title: "Design and iterate",
-    description:
-      "We move from prototype to pilot with tight feedback loops, measuring outcomes and simplifying where needed.",
-    icon: "🚀",
-  },
-];
-
-const whyChooseUs = [
-  {
-    title: "Clear, honest guidance",
-    description:
-      "We're transparent about what AI can and cannot do for your specific situation.",
-    icon: "💡",
-  },
-  {
-    title: "Built for operators",
-    description:
-      "Our work centers the people running your processes every day, not just slide decks.",
-    icon: "👥",
-  },
-  {
-    title: "Implementation and enablement",
-    description:
-      "Documentation, training, and simple playbooks ensure that what we build keeps delivering value after the engagement ends.",
-    icon: "📚",
-  },
-];
-
-const values = [
-  { label: "Pragmatic", description: "Real solutions over buzzwords" },
-  { label: "Collaborative", description: "Your team at the center" },
-  { label: "Transparent", description: "Honest about what works" },
-  { label: "Results-focused", description: "Measurable outcomes" },
-];
+﻿"use client";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-br from-slate-50 via-white to-slate-50">
-        <div className="absolute inset-0 overflow-hidden opacity-40">
-          <div className="absolute -right-1/4 top-0 h-96 w-96 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 blur-3xl" />
-          <div className="absolute -left-1/4 bottom-0 h-96 w-96 rounded-full bg-gradient-to-tr from-cyan-100 to-blue-100 blur-3xl" />
-        </div>
-
-        <div className="relative mx-auto max-w-6xl px-4 py-16 md:px-6 lg:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/50 px-4 py-1.5 backdrop-blur-sm">
-              <span className="text-xs font-semibold text-blue-700">
-                About InsightFlow
-              </span>
-            </div>
-
-            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-              AI consulting built for{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                real teams
-              </span>
+      <section className="bg-gradient-to-br from-green-50 via-white to-gray-50 py-20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              About <span className="bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">InsightFlow</span>
             </h1>
-
-            <p className="mt-6 text-lg leading-relaxed text-slate-600 sm:text-xl">
-              InsightFlow exists to help growing teams use AI in ways that are
-              practical, reliable, and grounded in their real workflows. We
-              combine product thinking, operations experience, and modern AI
-              tooling to create systems your team can trust.
+            <p className="text-xl text-gray-600 leading-relaxed">
+              We're on a mission to make AI strategy accessible and actionable for forward-thinking businesses. 
+              Founded in 2025, we bridge the gap between AI potential and practical implementation.
             </p>
+          </div>
+        </div>
+      </section>
 
-            {/* Values pills */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              {values.map((value) => (
-                <div
-                  key={value.label}
-                  className="group relative rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm transition-all hover:border-blue-300 hover:shadow-md"
-                >
-                  <div className="text-sm font-semibold text-slate-900">
-                    {value.label}
-                  </div>
-                  <div className="text-xs text-slate-500">
-                    {value.description}
-                  </div>
-                </div>
-              ))}
+      {/* Who We Are */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">Who We Are</h2>
+            </div>
+            
+            <div className="space-y-8 text-lg text-gray-600 leading-relaxed">
+              <p>
+                InsightFlow Consulting is a specialized AI strategy firm dedicated to helping businesses navigate the rapidly evolving landscape of artificial intelligence. We believe that every company, regardless of size or industry, deserves access to world-class AI consulting that drives real results.
+              </p>
+              <p>
+                Our team combines deep technical expertise with practical business acumen to deliver AI solutions that don't just impress—they transform. We've helped over 500 companies automate workflows, optimize operations, and unlock new growth opportunities through strategic AI implementation.
+              </p>
+              <p>
+                What sets us apart is our commitment to clarity and execution. We don't believe in AI for AI's sake. Every solution we recommend is designed to solve real business problems and deliver measurable ROI within months, not years.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* How We Work Section */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 lg:py-20">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-              How we work
-            </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              A straightforward, collaborative process focused on your success
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            {workProcess.map((item, idx) => (
-              <div key={item.step} className="group relative">
-                {/* Connecting line (desktop only) */}
-                {idx < workProcess.length - 1 && (
-                  <div className="absolute left-full top-16 hidden h-px w-full bg-gradient-to-r from-slate-300 to-transparent md:block" />
-                )}
-
-                <div className="relative h-full overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                  {/* Step number badge */}
-                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 text-lg font-bold text-white shadow-lg shadow-blue-500/25">
-                    {item.step}
-                  </div>
-
-                  {/* Icon */}
-                  <div className="mb-3 text-3xl">{item.icon}</div>
-
-                  {/* Content */}
-                  <h3 className="mb-3 text-xl font-bold text-slate-900">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    {item.description}
-                  </p>
+      {/* Mission, Vision & Philosophy */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Foundation</h2>
+              <p className="text-xl text-gray-600">The principles that guide everything we do</p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+                  <span className="text-3xl">🎯</span>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="border-b border-slate-200 bg-slate-50">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 lg:py-20">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-              Why teams choose us
-            </h2>
-            <p className="mt-4 text-lg text-slate-600">
-              We&apos;re different because we focus on what actually matters
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {whyChooseUs.map((item) => (
-              <div
-                key={item.title}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 text-2xl">
-                  {item.icon}
-                </div>
-
-                <h3 className="mb-3 text-lg font-bold text-slate-900">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-600">
-                  {item.description}
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  To democratize AI strategy and make intelligent automation accessible to businesses of all sizes, 
+                  helping them achieve exponential growth through practical AI implementation.
                 </p>
-
-                {/* Decorative element */}
-                <div className="absolute -bottom-2 -right-2 h-24 w-24 rounded-full bg-slate-50 opacity-0 transition-opacity group-hover:opacity-100" />
               </div>
-            ))}
+              
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                  <span className="text-3xl">🚀</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  A world where every business leverages AI to operate more efficiently, make better decisions, 
+                  and create meaningful value for their customers and communities.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+                  <span className="text-3xl">🧠</span>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Philosophy</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  We focus on automation and clarity because AI should simplify, not complicate. 
+                  Every solution we design prioritizes practical implementation over theoretical complexity.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 lg:py-20">
-          <div className="grid gap-8 md:grid-cols-4">
-            {[
-              { value: "50+", label: "Projects Completed" },
-              { value: "98%", label: "Client Satisfaction" },
-              { value: "2.8x", label: "Average ROI" },
-              { value: "12 wks", label: "Avg Time to Value" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-4xl font-bold text-slate-900 sm:text-5xl">
-                  {stat.value}
+      {/* Our 3-Step Process */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Proven Process</h2>
+              <p className="text-xl text-gray-600">How we transform your business operations in three focused phases</p>
+            </div>
+            
+            <div className="space-y-12">
+              <div className="flex flex-col md:flex-row items-start gap-8">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
+                    <span className="text-white font-bold text-2xl">1</span>
+                  </div>
                 </div>
-                <div className="mt-2 text-sm text-slate-600">{stat.label}</div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Discovery</h3>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    We begin with a comprehensive analysis of your current workflows, identifying automation opportunities and potential efficiency gains. Our team conducts stakeholder interviews, process audits, and technology assessments to understand your unique challenges and objectives.
+                  </p>
+                  <ul className="text-gray-600 space-y-2">
+                    <li className="flex items-center"><span className="text-green-500 mr-2">•</span>Current state assessment</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">•</span>Stakeholder alignment sessions</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">•</span>Opportunity identification</li>
+                  </ul>
+                </div>
               </div>
-            ))}
+              
+              <div className="flex flex-col md:flex-row items-start gap-8">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
+                    <span className="text-white font-bold text-2xl">2</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Strategy</h3>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    Based on our discovery insights, we develop a customized AI strategy that aligns with your business goals. We prioritize initiatives by impact and feasibility, creating a clear roadmap with defined milestones and success metrics.
+                  </p>
+                  <ul className="text-gray-600 space-y-2">
+                    <li className="flex items-center"><span className="text-blue-500 mr-2">•</span>Custom AI roadmap development</li>
+                    <li className="flex items-center"><span className="text-blue-500 mr-2">•</span>ROI projections and timeline</li>
+                    <li className="flex items-center"><span className="text-blue-500 mr-2">•</span>Risk assessment and mitigation</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="flex flex-col md:flex-row items-start gap-8">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                    <span className="text-white font-bold text-2xl">3</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Implementation</h3>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    We execute the strategy through phased rollouts, ensuring minimal disruption to your operations. Our team provides hands-on support, comprehensive training, and ongoing optimization to guarantee success and sustained value delivery.
+                  </p>
+                  <ul className="text-gray-600 space-y-2">
+                    <li className="flex items-center"><span className="text-purple-500 mr-2">•</span>Phased deployment approach</li>
+                    <li className="flex items-center"><span className="text-purple-500 mr-2">•</span>Team training and enablement</li>
+                    <li className="flex items-center"><span className="text-purple-500 mr-2">•</span>Performance monitoring and optimization</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Story */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-lg">
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                <div className="flex-shrink-0">
+                  <div className="w-32 h-32 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-4xl">IF</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
+                  <div className="space-y-4 text-gray-600 leading-relaxed">
+                    <p>
+                      InsightFlow was founded in early 2025 with a simple observation: while AI technology was advancing rapidly, most businesses struggled to translate that potential into practical value. The gap between AI capability and business implementation was growing wider, not smaller.
+                    </p>
+                    <p>
+                      Our founders, coming from backgrounds in both technology and business strategy, recognized that what the market needed wasn't more AI tools—it needed better AI strategy. Companies needed partners who could speak both languages: the language of technology and the language of business outcomes.
+                    </p>
+                    <p>
+                      Today, we've helped over 500 companies bridge that gap, generating more than $50 million in cost savings and efficiency gains. Our mission remains unchanged: making AI strategy accessible, actionable, and profitable for businesses ready to embrace the future.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Company Timeline */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Journey</h2>
+              <p className="text-xl text-gray-600">Key milestones in our mission to democratize AI strategy</p>
+            </div>
+            
+            <div className="space-y-8">
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-4 h-4 bg-green-500 rounded-full mt-2"></div>
+                <div>
+                  <div className="text-green-600 font-semibold mb-1">Late 2024</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Early Research & Development</h3>
+                  <p className="text-gray-600">Conducted extensive research on AI implementation challenges across industries. Identified key gaps in the consulting market.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-4 h-4 bg-green-500 rounded-full mt-2"></div>
+                <div>
+                  <div className="text-green-600 font-semibold mb-1">Early 2025</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">InsightFlow Lab Launch</h3>
+                  <p className="text-gray-600">Built and launched our AI tools platform, including the Service Recommender and Brief Analyzer, to democratize access to AI strategy insights.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-4 h-4 bg-green-500 rounded-full mt-2"></div>
+                <div>
+                  <div className="text-green-600 font-semibold mb-1">Mid 2025</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Full Consulting Platform</h3>
+                  <p className="text-gray-600">Launched comprehensive consulting services, combining our digital tools with hands-on strategic guidance for enterprise clients.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-4 h-4 bg-blue-500 rounded-full mt-2"></div>
+                <div>
+                  <div className="text-blue-600 font-semibold mb-1">Today</div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Scaling Impact</h3>
+                  <p className="text-gray-600">Serving 50+ clients with 500+ successful projects completed. Continuously expanding our AI toolkit and consulting methodologies.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us & Team Values */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12">
+              
+              {/* Why Choose Us */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">Why Choose InsightFlow</h2>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-600 font-bold">✓</span>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Proven Track Record</h3>
+                      <p className="text-gray-600">500+ successful AI implementations with an average 4.8x ROI within 6 months.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-600 font-bold">✓</span>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Rapid Implementation</h3>
+                      <p className="text-gray-600">Start seeing results within 24 hours of our first consultation call.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-600 font-bold">✓</span>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Business-First Approach</h3>
+                      <p className="text-gray-600">We prioritize practical business outcomes over technological complexity.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-600 font-bold">✓</span>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">Comprehensive Support</h3>
+                      <p className="text-gray-600">End-to-end guidance from strategy through implementation and optimization.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-green-600 font-bold">✓</span>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 mb-2">ROI Guarantee</h3>
+                      <p className="text-gray-600">We stand behind our results with performance guarantees and success metrics.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Team Values */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg">
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Core Values</h2>
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
+                      <span className="text-2xl mr-3">🧠</span>
+                      First-Principles Thinking
+                    </h3>
+                    <p className="text-gray-600">We solve problems from the ground up, questioning assumptions and building solutions based on fundamental truths rather than conventional wisdom.</p>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
+                      <span className="text-2xl mr-3">⚡</span>
+                      High Agency
+                    </h3>
+                    <p className="text-gray-600">We take ownership of outcomes and proactively drive results. When challenges arise, we find solutions rather than excuses.</p>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
+                      <span className="text-2xl mr-3">💬</span>
+                      Clear Communication
+                    </h3>
+                    <p className="text-gray-600">We believe in transparent, jargon-free communication. Complex AI concepts are explained in business terms that drive decision-making.</p>
+                  </div>
+                  
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
+                      <span className="text-2xl mr-3">🚀</span>
+                      Lightweight Execution
+                    </h3>
+                    <p className="text-gray-600">We favor speed and iteration over perfect plans. Better to ship working solutions quickly and improve them than to delay with theoretical perfection.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 lg:py-20">
-          <div className="rounded-2xl border border-slate-700 bg-slate-800/50 p-8 backdrop-blur-sm lg:p-12">
-            <div className="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-12">
-              <div className="flex-1 text-center md:text-left">
-                <h2 className="text-3xl font-bold text-white sm:text-4xl">
-                  Ready to work together?
-                </h2>
-                <p className="mt-4 text-lg leading-relaxed text-slate-300">
-                  Let&apos;s discuss how we can help your team leverage AI
-                  effectively.
-                </p>
-              </div>
-
-              <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/30 active:scale-95"
-                >
-                  Get in touch
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                    />
-                  </svg>
-                </Link>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-slate-600 bg-slate-700/50 px-6 py-3 text-sm font-semibold text-slate-200 transition-all hover:border-slate-500 hover:bg-slate-600/50 hover:text-white active:scale-95"
-                >
-                  View services
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
-              </div>
+      <section className="py-20 bg-gradient-to-r from-green-500 to-green-600">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-3xl mx-auto text-white">
+            <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
+            <p className="text-xl text-green-100 mb-8">
+              Join the growing number of companies that trust InsightFlow to guide their AI transformation journey.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/contact" className="bg-white text-green-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+                Start Your Journey
+              </a>
+              <a href="/lab" className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-colors">
+                Try Our Tools
+              </a>
             </div>
           </div>
         </div>
