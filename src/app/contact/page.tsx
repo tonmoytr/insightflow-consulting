@@ -1,8 +1,24 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 
-const contactFAQs = [
+type ContactFormData = {
+  name: string;
+  email: string;
+  company: string;
+  phone: string;
+  projectType: string;
+  timeline: string;
+  budget: string;
+  message: string;
+};
+
+type ContactFAQ = {
+  question: string;
+  answer: string;
+};
+
+const contactFAQs: ContactFAQ[] = [
   {
     question: "How do engagements typically begin?",
     answer:
@@ -30,31 +46,8 @@ const contactFAQs = [
   },
 ];
 
-const serviceTeamInsights = [
-  {
-    metric: "24 hours",
-    description: "Typical response time",
-    icon: "⚡",
-  },
-  {
-    metric: "15 minutes",
-    description: "Free consultation length",
-    icon: "🕒",
-  },
-  {
-    metric: "98%",
-    description: "Client satisfaction rate",
-    icon: "⭐",
-  },
-  {
-    metric: "500+",
-    description: "Projects completed",
-    icon: "🎯",
-  },
-];
-
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     company: "",
@@ -66,9 +59,9 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [openFAQ, setOpenFAQ] = useState(null);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -93,15 +86,17 @@ export default function ContactPage() {
     }, 2000);
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
-  const toggleFAQ = (index) => {
-    setOpenFAQ(openFAQ === index ? null : index);
+  const toggleFAQ = (index: number) => {
+    setOpenFAQ((prev) => (prev === index ? null : index));
   };
 
   return (
@@ -109,18 +104,18 @@ export default function ContactPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-green-50 via-white to-blue-50 py-20">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mb-6 text-5xl font-bold text-gray-900 lg:text-6xl">
               Get in{" "}
               <span className="bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
                 Touch
               </span>
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
+            <p className="mb-8 text-xl leading-relaxed text-gray-600">
               Ready to transform your business with AI? Let's start with a free
               consultation to explore how we can help you achieve your goals.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a href="#contact-form" className="btn-primary px-8 py-4">
                 Start Free Consultation
               </a>
@@ -133,14 +128,14 @@ export default function ContactPage() {
       </section>
 
       <div className="container mx-auto px-6 py-20">
-        <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
+        <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
           {/* Contact Form */}
           <div
             id="contact-form"
-            className="bg-white rounded-3xl p-8 lg:p-12 shadow-lg"
+            className="rounded-3xl bg-white p-8 shadow-lg lg:p-12"
           >
             <div className="mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="mb-4 text-3xl font-bold text-gray-900">
                 Send Us a Message
               </h2>
               <p className="text-gray-600">
@@ -150,10 +145,10 @@ export default function ContactPage() {
             </div>
 
             {isSubmitted ? (
-              <div className="text-center py-16">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="py-16 text-center">
+                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
                   <svg
-                    className="w-10 h-10 text-green-600"
+                    className="h-10 w-10 text-green-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -166,27 +161,27 @@ export default function ContactPage() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
                   Message Sent!
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="mb-6 text-gray-600">
                   Thank you for reaching out. We'll review your inquiry and get
                   back to you within 24 hours with personalized recommendations
                   for your AI transformation journey.
                 </p>
-                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                  <p className="text-green-800 font-medium">
+                <div className="rounded-xl border border-green-200 bg-green-50 p-4">
+                  <p className="font-medium text-green-800">
                     📧 Confirmation sent to {formData.email}
                   </p>
                 </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-900"
                     >
                       Full Name *
                     </label>
@@ -197,14 +192,14 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-colors placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-500"
                       placeholder="John Smith"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-900"
                     >
                       Email Address *
                     </label>
@@ -215,17 +210,17 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-colors placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-500"
                       placeholder="john@company.com"
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label
                       htmlFor="company"
-                      className="block text-sm font-medium text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-900"
                     >
                       Company Name
                     </label>
@@ -235,14 +230,14 @@ export default function ContactPage() {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-colors placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-500"
                       placeholder="Your Company"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block text-sm font-medium text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-900"
                     >
                       Phone Number
                     </label>
@@ -252,17 +247,17 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-colors placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-500"
                       placeholder="+1 (555) 123-4567"
                     />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label
                       htmlFor="projectType"
-                      className="block text-sm font-medium text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-900"
                     >
                       Project Type
                     </label>
@@ -271,7 +266,7 @@ export default function ContactPage() {
                       name="projectType"
                       value={formData.projectType}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-colors focus:border-green-500 focus:ring-2 focus:ring-green-500"
                     >
                       <option value="">Select a service</option>
                       <option value="discovery">AI Discovery & Audit</option>
@@ -285,7 +280,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="timeline"
-                      className="block text-sm font-medium text-gray-900 mb-2"
+                      className="mb-2 block text-sm font-medium text-gray-900"
                     >
                       Preferred Timeline
                     </label>
@@ -294,7 +289,7 @@ export default function ContactPage() {
                       name="timeline"
                       value={formData.timeline}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                      className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-colors focus:border-green-500 focus:ring-2 focus:ring-green-500"
                     >
                       <option value="">Select timeline</option>
                       <option value="asap">ASAP (within 2 weeks)</option>
@@ -308,7 +303,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="budget"
-                    className="block text-sm font-medium text-gray-900 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-900"
                   >
                     Estimated Budget Range
                   </label>
@@ -317,7 +312,7 @@ export default function ContactPage() {
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors"
+                    className="w-full rounded-xl border border-gray-300 px-4 py-3 transition-colors focus:border-green-500 focus:ring-2 focus:ring-green-500"
                   >
                     <option value="">Select budget range</option>
                     <option value="under-25k">Under $25,000</option>
@@ -331,7 +326,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-900 mb-2"
+                    className="mb-2 block text-sm font-medium text-gray-900"
                   >
                     Project Details *
                   </label>
@@ -342,7 +337,7 @@ export default function ContactPage() {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors resize-none"
+                    className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 transition-colors placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-500"
                     placeholder="Tell us about your current challenges, what you're hoping to achieve, and any specific requirements you have..."
                   />
                 </div>
@@ -350,12 +345,12 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full btn-primary py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-primary w-full py-4 text-lg disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
                       <svg
-                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        className="mr-3 h-5 w-5 animate-spin text-white"
                         fill="none"
                         viewBox="0 0 24 24"
                       >
@@ -380,7 +375,7 @@ export default function ContactPage() {
                   )}
                 </button>
 
-                <p className="text-sm text-gray-500 text-center">
+                <p className="text-center text-sm text-gray-500">
                   By submitting this form, you agree to our privacy policy.
                   We'll only use your information to respond to your inquiry.
                 </p>
@@ -391,24 +386,24 @@ export default function ContactPage() {
           {/* Contact Info & Additional Sections */}
           <div className="space-y-8">
             {/* Quick Call Booking */}
-            <div id="quick-call" className="bg-white rounded-3xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <div id="quick-call" className="rounded-3xl bg-white p-8 shadow-lg">
+              <h3 className="mb-4 text-2xl font-bold text-gray-900">
                 Book a Free 15-Minute Call
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="mb-6 text-gray-600">
                 Prefer to talk directly? Schedule a quick call to discuss your
                 AI opportunities and get immediate insights.
               </p>
 
               {/* Calendly Embed Placeholder */}
-              <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-8 border-2 border-dashed border-green-300 text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="rounded-xl border-2 border-dashed border-green-300 bg-gradient-to-br from-green-50 to-blue-50 p-8 text-center">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <span className="text-2xl">📅</span>
                 </div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                <h4 className="mb-2 text-lg font-semibold text-gray-900">
                   Calendly Integration
                 </h4>
-                <p className="text-gray-600 mb-4">
+                <p className="mb-4 text-gray-600">
                   Your Calendly booking widget would appear here
                 </p>
                 <a
@@ -423,49 +418,49 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Information */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+            <div className="rounded-3xl bg-white p-8 shadow-lg">
+              <h3 className="mb-6 text-2xl font-bold text-gray-900">
                 Get in Touch
               </h3>
 
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-green-100">
                     <span className="text-xl">📧</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
+                    <h4 className="mb-1 font-semibold text-gray-900">Email</h4>
                     <p className="text-gray-600">hello@insightflow.ai</p>
-                    <p className="text-green-600 text-sm">
+                    <p className="text-sm text-green-600">
                       We respond within 24 hours
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-blue-100">
                     <span className="text-xl">📞</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">Phone</h4>
+                    <h4 className="mb-1 font-semibold text-gray-900">Phone</h4>
                     <p className="text-gray-600">+1 (555) 123-4567</p>
-                    <p className="text-blue-600 text-sm">
+                    <p className="text-sm text-blue-600">
                       Mon-Fri, 9 AM - 6 PM PST
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-purple-100">
                     <span className="text-xl">📍</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">
+                    <h4 className="mb-1 font-semibold text-gray-900">
                       Office Locations
                     </h4>
                     <p className="text-gray-600">San Francisco, CA</p>
                     <p className="text-gray-600">New York, NY</p>
-                    <p className="text-purple-600 text-sm">
+                    <p className="text-sm text-purple-600">
                       Remote consultations available globally
                     </p>
                   </div>
@@ -476,10 +471,10 @@ export default function ContactPage() {
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-20 max-w-4xl mx-auto">
-          <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-lg">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+        <div className="mx-auto mt-20 max-w-4xl">
+          <div className="rounded-3xl bg-white p-8 shadow-lg lg:p-12">
+            <div className="mb-12 text-center">
+              <h2 className="mb-6 text-3xl font-bold text-gray-900">
                 Frequently Asked Questions
               </h2>
               <p className="text-xl text-gray-600">
@@ -491,17 +486,18 @@ export default function ContactPage() {
               {contactFAQs.map((faq, index) => (
                 <div
                   key={index}
-                  className="border border-gray-200 rounded-xl overflow-hidden"
+                  className="overflow-hidden rounded-xl border border-gray-200"
                 >
                   <button
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                    type="button"
+                    className="flex w-full items-center justify-between px-6 py-4 text-left transition-colors hover:bg-gray-50"
                     onClick={() => toggleFAQ(index)}
                   >
                     <span className="font-semibold text-gray-900">
                       {faq.question}
                     </span>
                     <svg
-                      className={`w-5 h-5 text-gray-500 transform transition-transform ${
+                      className={`h-5 w-5 text-gray-500 transform transition-transform ${
                         openFAQ === index ? "rotate-180" : ""
                       }`}
                       fill="none"
@@ -518,7 +514,7 @@ export default function ContactPage() {
                   </button>
                   {openFAQ === index && (
                     <div className="px-6 pb-4">
-                      <p className="text-gray-600 leading-relaxed">
+                      <p className="leading-relaxed text-gray-600">
                         {faq.answer}
                       </p>
                     </div>
@@ -527,8 +523,8 @@ export default function ContactPage() {
               ))}
             </div>
 
-            <div className="text-center mt-8 pt-8 border-t border-gray-200">
-              <p className="text-gray-600 mb-4">Still have questions?</p>
+            <div className="mt-8 border-t border-gray-200 pt-8 text-center">
+              <p className="mb-4 text-gray-600">Still have questions?</p>
               <a href="#contact-form" className="btn-secondary px-6 py-3">
                 Send Us a Message
               </a>
